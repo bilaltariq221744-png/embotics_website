@@ -1,0 +1,21 @@
+/* src/styles/globals.css */
+@import "tailwindcss";
+
+@theme {
+  --color-green-primary: #16A34A;
+  --color-forest: #064E3B;        /* replaces dark navy */
+  --color-accent-teal: #14B8A6;
+  --color-bg-light: #F8FAFC;
+  --color-sage-light: #F0FDF4;    /* subtle green tint for footer, cards */
+  --color-text-base: #334155;
+
+  --font-heading: 'Manrope', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-light);
+  color: var(--color-text-base);
+  -webkit-font-smoothing: antialiased;
+}
