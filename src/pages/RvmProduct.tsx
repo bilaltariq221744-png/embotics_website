@@ -18,9 +18,45 @@ import {
 import Button from '../components/ui/Button';
 import { Link } from 'react-router-dom';
 import productImage from '../assets/product.png';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
+import { submitForm } from '../lib/submitForm';
 
 // ---------------- RVM PRODUCT PAGE ----------------
 const RvmProduct = () => {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleDemoSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setErrorMessage(null);
+    setSubmitted(false);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const data = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      company: formData.get('company') as string,
+      phone: formData.get('phone') as string,
+      message: formData.get('message') as string,
+      type: 'demo' as const,
+    };
+
+    const result = await submitForm(data);
+    if (result.success) {
+      setSubmitted(true);
+      setErrorMessage(null);
+      form.reset();
+    } else {
+      setSubmitted(false);
+      setErrorMessage(typeof result.error === 'string' ? result.error : String(result.error));
+    }
+    setSubmitting(false);
+  };
+
   return (
     <div>
       {/* 1. Product Hero */}
@@ -325,12 +361,14 @@ const RvmProduct = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
             viewport={{ once: true }}
+            onSubmit={handleDemoSubmit}
             className="bg-white rounded-2xl p-6 sm:p-8 border border-sage-light shadow-sm"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-forest font-medium text-sm mb-1">Full name *</label>
                 <input
+                  name="name"
                   type="text"
                   className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                   placeholder="John Doe"
@@ -340,6 +378,7 @@ const RvmProduct = () => {
               <div>
                 <label className="block text-forest font-medium text-sm mb-1">Email *</label>
                 <input
+                  name="email"
                   type="email"
                   className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                   placeholder="john@company.com"
@@ -349,6 +388,7 @@ const RvmProduct = () => {
               <div>
                 <label className="block text-forest font-medium text-sm mb-1">Company</label>
                 <input
+                  name="company"
                   type="text"
                   className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                   placeholder="Company name"
@@ -357,6 +397,7 @@ const RvmProduct = () => {
               <div>
                 <label className="block text-forest font-medium text-sm mb-1">Phone</label>
                 <input
+                  name="phone"
                   type="tel"
                   className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                   placeholder="+91 0000000000"
@@ -366,14 +407,23 @@ const RvmProduct = () => {
             <div className="mb-4">
               <label className="block text-forest font-medium text-sm mb-1">Message</label>
               <textarea
+                name="message"
                 rows={3}
                 className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                 placeholder="Tell us about your deployment needs..."
               />
             </div>
-            <Button type="submit" variant="primary" className="w-full gap-2">
-              Submit Demo Request <Mail className="w-4 h-4" />
+            <Button type="submit" variant="primary" className="w-full gap-2" disabled={submitting}>
+              {submitting ? 'Sending...' : 'Submit Demo Request'} <Mail className="w-4 h-4" />
             </Button>
+            {submitted && (
+              <p className="text-green-primary text-sm text-center mt-2">
+                Thanks! We’ll be in touch to schedule your demo.
+              </p>
+            )}
+            {errorMessage && (
+              <p className="text-red-600 text-sm text-center mt-2">{errorMessage}</p>
+            )}
             <p className="text-xs text-text-base/50 mt-3 text-center">
               We respect your privacy and will never share your data.
             </p>

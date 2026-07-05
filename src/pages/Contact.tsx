@@ -1,9 +1,46 @@
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Clock, ShieldCheck } from 'lucide-react';
 import Button from '../components/ui/Button';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
+import { submitForm } from '../lib/submitForm';
 
 // ---------------- CONTACT PAGE ----------------
 const Contact = () => {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setErrorMessage(null);
+    setSubmitted(false);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const data = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      company: formData.get('company') as string,
+      phone: formData.get('phone') as string,
+      interest: formData.get('interest') as string,
+      message: formData.get('message') as string,
+      type: 'contact' as const,
+    };
+
+    const result = await submitForm(data);
+    if (result.success) {
+      setSubmitted(true);
+      setErrorMessage(null);
+      form.reset();
+    } else {
+      setSubmitted(false);
+      setErrorMessage(typeof result.error === 'string' ? result.error : String(result.error));
+    }
+    setSubmitting(false);
+  };
+
   return (
     <div>
       {/* 1. Page Hero */}
@@ -18,10 +55,10 @@ const Contact = () => {
               Contact Us
             </span>
             <h1 className="mt-4 font-heading text-4xl sm:text-5xl font-bold text-forest leading-tight">
-              Let’s Build Something Sustainable
+              Let's Build Something Sustainable
             </h1>
             <p className="mt-6 text-text-base/80 text-lg max-w-2xl mx-auto">
-              Request a demo, discuss an engineering project, or just say hello. We’ll get back to
+              Request a demo, discuss an engineering project, or just say hello. We'll get back to
               you within one business day.
             </p>
           </motion.div>
@@ -82,11 +119,12 @@ const Contact = () => {
             className="bg-white rounded-2xl p-6 sm:p-8 border border-sage-light shadow-sm"
           >
             <h2 className="font-heading text-2xl font-bold text-forest mb-6">Send a Message</h2>
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-forest font-medium text-sm mb-1">Full name *</label>
                   <input
+                    name="name"
                     type="text"
                     className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                     placeholder="John Doe"
@@ -96,6 +134,7 @@ const Contact = () => {
                 <div>
                   <label className="block text-forest font-medium text-sm mb-1">Email *</label>
                   <input
+                    name="email"
                     type="email"
                     className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                     placeholder="john@company.com"
@@ -107,6 +146,7 @@ const Contact = () => {
                 <div>
                   <label className="block text-forest font-medium text-sm mb-1">Company</label>
                   <input
+                    name="company"
                     type="text"
                     className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                     placeholder="Company name"
@@ -115,6 +155,7 @@ const Contact = () => {
                 <div>
                   <label className="block text-forest font-medium text-sm mb-1">Phone</label>
                   <input
+                    name="phone"
                     type="tel"
                     className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                     placeholder="+91 0000000000"
@@ -124,6 +165,7 @@ const Contact = () => {
               <div>
                 <label className="block text-forest font-medium text-sm mb-1">Interest *</label>
                 <select
+                  name="interest"
                   className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors bg-white"
                   required
                 >
@@ -137,14 +179,23 @@ const Contact = () => {
               <div>
                 <label className="block text-forest font-medium text-sm mb-1">Message</label>
                 <textarea
+                  name="message"
                   rows={4}
                   className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                   placeholder="Tell us about your project or enquiry..."
                 />
               </div>
-              <Button type="submit" variant="primary" className="w-full gap-2">
-                Send Message <Send className="w-4 h-4" />
+              <Button type="submit" variant="primary" className="w-full gap-2" disabled={submitting}>
+                {submitting ? 'Sending...' : 'Send Message'} <Send className="w-4 h-4" />
               </Button>
+              {submitted && (
+                <p className="text-green-primary text-sm text-center mt-2">
+                  Thank you! We'll get back to you within one business day.
+                </p>
+              )}
+              {errorMessage && (
+                <p className="text-red-600 text-sm text-center mt-2">{errorMessage}</p>
+              )}
               <p className="text-xs text-text-base/50 text-center mt-2">
                 <ShieldCheck className="inline w-3 h-3 mr-1" />
                 We respect your privacy and never share your data.
