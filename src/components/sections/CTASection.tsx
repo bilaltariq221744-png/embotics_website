@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 
 const CTASection = () => {
   return (
-    <section className="bg-white py-10 sm:py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-full border border-green-primary/40 py-20 px-6 sm:px-12 overflow-hidden text-center">
+    <section className="py-10 sm:py-16 relative z-10">
+      <div className="max-w-4xl mx-4 sm:mx-auto">
+        <div className="relative overflow-hidden rounded-[32px] sm:rounded-[999px] border border-green-primary/30 bg-emerald-50/60 px-6 py-14 sm:py-19 text-center">
           {/* Soft radial gradient for depth */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-green-primary/25 via-transparent to-transparent opacity-70" />
 

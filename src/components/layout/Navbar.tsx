@@ -44,7 +44,7 @@ const Navbar = () => {
               phones. Only the small mono tagline underneath stays sm+ only,
               since two lines of text next to the logo gets tight once the
               hamburger button is also competing for space. */}
-          <Link to="/" className="flex items-center gap-2 sm:gap-3 text-white font-heading font-bold shrink-0 group min-w-0">
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 text-white font-heading font-bold min-w-0 group min-w-0">
             <motion.div
               whileHover={{ rotate: -6, scale: 1.06 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}

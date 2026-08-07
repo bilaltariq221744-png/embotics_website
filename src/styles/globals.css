@@ -30,3 +30,7 @@ body {
   background-color: var(--color-green-primary);
   color: white;
 }
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
