@@ -1,0 +1,32 @@
+/* src/styles/globals.css */
+@import "tailwindcss";
+
+@theme {
+  --color-green-primary: #16A34A;
+  --color-forest: #064E3B;        /* replaces dark navy */
+  --color-accent-teal: #14B8A6;
+  --color-accent-lime: #A3E635;   /* bright chip/tag accent, used sparingly */
+  --color-ink: #0D120F;           /* near-black surface for nav pills, dark cards, CTA blocks */
+  --color-ink-soft: #161D19;      /* slightly lighter ink for nested cards on dark surfaces */
+  --color-bg-light: #F8FAFC;
+  --color-sage-light: #F0FDF4;    /* subtle green tint for footer, cards */
+  --color-text-base: #334155;
+
+  --font-heading: 'Manrope', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --radius-xl: 1.75rem;
+  --radius-2xl: 2.25rem;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-light);
+  color: var(--color-text-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-green-primary);
+  color: white;
+}
