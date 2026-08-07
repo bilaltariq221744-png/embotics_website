@@ -8,7 +8,7 @@ import {
   Wifi,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, type CSSProperties, type MouseEvent } from "react";
 import Button from "../ui/Button";
 import productImage from "../../assets/product.png";
 
@@ -45,35 +45,10 @@ const features = [
   },
 ];
 
-// Animation Variants
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 25,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
-
 const ProductShowcase = () => {
-  const [style, setStyle] = useState({});
+  const [style, setStyle] = useState<CSSProperties>({});
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
 
@@ -159,84 +134,83 @@ const ProductShowcase = () => {
             </p>
 
             {/* Feature Cards */}
-          {/* Feature Cards */}
-<div className="mt-10 space-y-4">
-  {features.map((feature, index) => (
-    <motion.div
-      key={feature.title}
-      initial={{ opacity: 0, x: 40 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{
-        duration: 0.6,
-        delay: index * 0.25, // <-- One after another
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
-      whileHover={{
-        y: -5,
-        scale: 1.02,
-      }}
-      className="group relative overflow-hidden rounded-2xl border border-green-primary/15 bg-white p-5 shadow-sm hover:border-green-primary hover:shadow-xl transition-all duration-300"
-    >
-      {/* Animated Left Border */}
-      <motion.div
-        className="absolute left-0 top-0 h-full w-1 bg-green-primary"
-        initial={{ scaleY: 0 }}
-        whileInView={{ scaleY: 1 }}
-        viewport={{ once: true }}
-        transition={{
-          delay: index * 0.25 + 0.2,
-          duration: 0.4,
-        }}
-        style={{ originY: 0 }}
-      />
+            <div className="mt-10 space-y-4">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, x: 40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.25, // <-- One after another
+                    ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+                  }}
+                  whileHover={{
+                    y: -5,
+                    scale: 1.02,
+                  }}
+                  className="group relative overflow-hidden rounded-2xl border border-green-primary/15 bg-white p-5 shadow-sm hover:border-green-primary hover:shadow-xl transition-all duration-300"
+                >
+                  {/* Animated Left Border */}
+                  <motion.div
+                    className="absolute left-0 top-0 h-full w-1 bg-green-primary"
+                    initial={{ scaleY: 0 }}
+                    whileInView={{ scaleY: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      delay: index * 0.25 + 0.2,
+                      duration: 0.4,
+                    }}
+                    style={{ originY: 0 }}
+                  />
 
-      <div className="flex gap-4">
-        <motion.div
-          initial={{ scale: 0 }}
-          whileInView={{ scale: 1 }}
-          viewport={{ once: true }}
-          transition={{
-            delay: index * 0.25 + 0.15,
-            type: "spring",
-            stiffness: 250,
-          }}
-          className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-green-primary/10 group-hover:bg-green-primary transition-colors duration-300"
-        >
-          <feature.icon className="h-6 w-6 text-green-primary group-hover:text-white transition-colors duration-300" />
-        </motion.div>
+                  <div className="flex gap-4">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        delay: index * 0.25 + 0.15,
+                        type: "spring",
+                        stiffness: 250,
+                      }}
+                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-green-primary/10 group-hover:bg-green-primary transition-colors duration-300"
+                    >
+                      <feature.icon className="h-6 w-6 text-green-primary group-hover:text-white transition-colors duration-300" />
+                    </motion.div>
 
-        <div>
-          <motion.h4
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              delay: index * 0.25 + 0.25,
-              duration: 0.4,
-            }}
-            className="text-lg font-semibold text-forest"
-          >
-            {feature.title}
-          </motion.h4>
+                    <div>
+                      <motion.h4
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          delay: index * 0.25 + 0.25,
+                          duration: 0.4,
+                        }}
+                        className="text-lg font-semibold text-forest"
+                      >
+                        {feature.title}
+                      </motion.h4>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{
-              delay: index * 0.25 + 0.4,
-              duration: 0.5,
-            }}
-            className="mt-2 text-sm leading-6 text-text-base/75"
-          >
-            {feature.description}
-          </motion.p>
-        </div>
-      </div>
-    </motion.div>
-  ))}
-</div>
+                      <motion.p
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          delay: index * 0.25 + 0.4,
+                          duration: 0.5,
+                        }}
+                        className="mt-2 text-sm leading-6 text-text-base/75"
+                      >
+                        {feature.description}
+                      </motion.p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
 
             {/* Button */}
             <div className="mt-10">

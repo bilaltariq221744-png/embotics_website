@@ -6,7 +6,7 @@ import {
   useSpring,
   animate,
 } from 'framer-motion';
-import { useRef, useState, MouseEvent } from 'react';
+import { useRef, useState, type MouseEvent } from 'react';
 import {
   Leaf,
   Target,
@@ -873,7 +873,7 @@ const About = () => {
             <div className="mt-8">
               <Link to="/contact">
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   className="gap-2 rounded-full border border-forest/60 bg-white text-forest font-semibold px-6 py-3 hover:bg-forest hover:text-white transition-colors"
                 >
                   Get in Touch <Mail className="w-4 h-4" />
@@ -887,5 +887,4 @@ const About = () => {
     </div>
   );
 };
-
 export default About;

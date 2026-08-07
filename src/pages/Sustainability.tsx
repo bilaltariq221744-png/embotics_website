@@ -23,12 +23,8 @@ import recycleImage from '../assets/recycle.jpg';
 import bottleImage from '../assets/CrushedImage.png';
 import recycleImageGraphic from '../assets/RecycleImage.png';
 
-// Same restrained "hardware" accent color used across the site — reserved
-// for small marks (icon rings, dots, dividers), never a big fill.
 const COPPER = '#C08A3E';
 
-// ---------- Animation variants — everything below uses viewport:{once:false},
-// so sections replay their entrance animation every time you scroll back to them. ----------
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 35 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
@@ -50,7 +46,6 @@ const scaleIn: Variants = {
   show: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 200, damping: 16 } },
 };
 
-// ---------- Ambient edge glow, same treatment as the Services / Engineering pages ----------
 const SideGlow = () => (
   <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden>
     <motion.div
@@ -80,7 +75,6 @@ const SideGlow = () => (
   </div>
 );
 
-// ---------- Count-up number: resets to 0 and re-plays every time it scrolls into view ----------
 const Counter = ({ end, suffix = '' }: { end: number; suffix?: string }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: false, margin: '-60px' });
@@ -161,7 +155,7 @@ const Sustainability = () => {
                     <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                       <Button
                         variant="primary"
-                        className="h-13 px-8 rounded-full bg-green-primary hover:bg-forest text-white font-bold text-base shadow-md hover:shadow-lg transition-all inline-flex items-center gap-2"
+                        className="h-[3.25rem] px-8 rounded-full bg-green-primary hover:bg-forest text-white font-bold text-base shadow-md hover:shadow-lg transition-all inline-flex items-center gap-2"
                       >
                         <span>Partner With Us</span>
                         <ArrowRight className="w-5 h-5" />
@@ -172,7 +166,7 @@ const Sustainability = () => {
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    className="h-13 px-7 rounded-full bg-white hover:bg-slate-50 text-forest font-semibold text-base border border-forest/15 shadow-sm hover:shadow transition-all inline-flex items-center gap-2.5"
+                    className="h-[3.25rem] px-7 rounded-full bg-white hover:bg-slate-50 text-forest font-semibold text-base border border-forest/15 shadow-sm hover:shadow transition-all inline-flex items-center gap-2.5"
                   >
                     <div className="w-7 h-7 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
                       <Play className="w-3.5 h-3.5 fill-emerald-600 ml-0.5" />
@@ -286,7 +280,7 @@ const Sustainability = () => {
           </motion.div>
         </section>
 
-        {/* 3. THE PROBLEM SECTION — dark forest band, matching the Sustainability theme */}
+        {/* 3. THE PROBLEM SECTION */}
         <section className="py-16 my-8 bg-[#2D5F44] relative z-10">
           <div className="max-w-[92%] mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.3 }} variants={fadeUp}>
@@ -639,12 +633,12 @@ const Sustainability = () => {
               className="relative overflow-hidden rounded-[32px] sm:rounded-[999px] border border-green-primary/30 bg-emerald-50/60 px-6 py-14 sm:py-19 text-center"
             >
               <Leaf
-                className="hidden sm:block absolute top-8 right-23 w-8 h-8 text-emerald-300"
+                className="hidden sm:block absolute top-8 right-[5.75rem] w-8 h-8 text-emerald-300"
                 strokeWidth={1.5}
                 aria-hidden
               />
               <Sparkles
-                className="hidden sm:block absolute bottom-13 left-24 w-6 h-6 text-emerald-300"
+                className="hidden sm:block absolute bottom-[3.25rem] left-24 w-6 h-6 text-emerald-300"
                 strokeWidth={1.5}
                 aria-hidden
               />
@@ -659,7 +653,7 @@ const Sustainability = () => {
               <div className="mt-8">
                 <Link to="/contact">
                   <Button
-                    variant="ghost"
+                    variant="outline"
                     className="gap-2 rounded-full border border-forest/60 bg-white text-forest font-semibold px-6 py-3 hover:bg-forest hover:text-white transition-colors"
                   >
                     Get in Touch <Mail className="w-4 h-4" />

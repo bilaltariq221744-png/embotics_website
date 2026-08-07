@@ -127,13 +127,13 @@ const Engineering = () => {
               className="mt-10 flex flex-wrap items-center justify-center gap-4"
             >
               <Link to="/contact">
-                <Button variant="primary" className="group h-13 px-8 rounded-full bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-medium shadow-xl shadow-emerald-900/10 transition-all duration-300 transform hover:-translate-y-0.5">
+                <Button variant="primary" className="group h-[3.25rem] px-8 rounded-full bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-medium shadow-xl shadow-emerald-900/10 transition-all duration-300 transform hover:-translate-y-0.5">
                   <span>Start Your Project</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Button>
               </Link>
               <a href="#embedded-systems">
-                <Button variant="outline" className="group h-13 px-8 rounded-full border-slate-200 bg-white/80 hover:bg-slate-50 hover:border-slate-300 text-slate-700 font-medium shadow-sm backdrop-blur-md transition-all duration-300">
+                <Button variant="outline" className="group h-[3.25rem] px-8 rounded-full border-slate-200 bg-white/80 hover:bg-slate-50 hover:border-slate-300 text-slate-700 font-medium shadow-sm backdrop-blur-md transition-all duration-300">
                   <span>Explore Capabilities</span>
                   <ArrowRight className="w-4 h-4 text-slate-400 transition-transform duration-300 group-hover:translate-x-1" />
                 </Button>
@@ -472,10 +472,10 @@ const Engineering = () => {
             className="relative overflow-hidden rounded-[3rem] sm:rounded-full bg-gradient-to-b from-emerald-50 to-emerald-50/40 border border-emerald-200 px-6 sm:px-16 py-16 sm:py-20 text-center"
           >
             {/* Decorative leaf icon - top right */}
-            <Leaf className="hidden sm:block absolute top-8 right-23 w-8 h-8 text-emerald-300" strokeWidth={1.5} />
+            <Leaf className="hidden sm:block absolute top-8 right-[5.75rem] w-8 h-8 text-emerald-300" strokeWidth={1.5} />
 
             {/* Decorative sparkle icon - bottom left */}
-            <Sparkles className="hidden sm:block absolute bottom-13 left-24 w-6 h-6 text-emerald-300" strokeWidth={1.5} />
+            <Sparkles className="hidden sm:block absolute bottom-[3.25rem] left-24 w-6 h-6 text-emerald-300" strokeWidth={1.5} />
 
             <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-forest">
               Want to build the future with us?
@@ -488,7 +488,7 @@ const Engineering = () => {
             <div className="mt-10 flex items-center justify-center">
               <Link to="/contact">
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   className="gap-2 rounded-full border border-forest/60 bg-white text-forest font-semibold px-6 py-3 hover:bg-forest hover:text-white transition-colors"
                 >
                   <span>Get in Touch</span> <Mail className="w-4 h-4" />

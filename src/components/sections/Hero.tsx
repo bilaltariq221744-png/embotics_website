@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { ArrowRight, Cpu, Zap, ShieldCheck } from 'lucide-react';
 import Button from '../ui/Button';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import heroBg from '../../assets/simple bottle.png';
 import crushedBg from '../../assets/pressed-bottle.png';
 
 // Main content animation
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -19,7 +19,7 @@ const containerVariants = {
 };
 
 // Individual text animation
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: {
     opacity: 0,
     y: 25,
@@ -29,7 +29,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.7,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   },
 };
@@ -71,7 +71,7 @@ const Hero = () => {
               animate={{ rotateY: isHovered ? 180 : 0 }}
               transition={{
                 duration: 0.9,
-                ease: [0.45, 0, 0.15, 1],
+                ease: [0.45, 0, 0.15, 1] as [number, number, number, number],
               }}
               style={{
                 width: '100%',
