@@ -21,7 +21,7 @@ import productImage from '../assets/product.png';
 import insertBottleImg from '../assets/insert-bottle.png';
 import sortingRecyclingImg from '../assets/sorting-recycling.png';
 import instantRewardImg from '../assets/instant-reward.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import { submitForm } from '../lib/submitForm';
 
@@ -29,17 +29,38 @@ import { submitForm } from '../lib/submitForm';
 const FlipImageCard = ({ src, alt }: { src: string; alt: string }) => {
   const [flipped, setFlipped] = useState(false);
 
+  // Auto-flip on devices that can't hover (touch/mobile), since a hover
+  // event never fires there. Desktop keeps the hover-to-flip behavior and
+  // this timer just doesn't run for it.
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: none)');
+    if (!mq.matches) return;
+
+    const interval = setInterval(() => {
+      setFlipped((v) => !v);
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div
       onMouseEnter={() => setFlipped(true)}
       onMouseLeave={() => setFlipped(false)}
-      className="h-full"
+      className="relative w-full lg:max-w-[440px] lg:mx-auto rounded-2xl overflow-hidden"
       style={{ perspective: 1200 }}
     >
+      {/* Invisible spacer — sets the box's height to match the image's
+          own aspect ratio at 100% width. This is what removes the
+          left/right (and top/bottom) letterbox gap: the box is now
+          exactly the image's shape, so object-contain has no leftover
+          space to center the image within. */}
+      <img src={src} alt="" aria-hidden="true" className="w-full h-auto invisible" />
+
       <motion.div
         animate={{ rotateY: flipped ? 180 : 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="relative h-170 w-full"
+        className="absolute inset-0 h-full w-full"
         style={{ transformStyle: 'preserve-3d' }}
       >
         {/* Front face */}
@@ -123,8 +144,10 @@ const RvmProduct = () => {
   return (
     <div>
       {/* 1. Product Hero */}
-      <section className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-stretch">
+      {/* CHANGED: py-20 -> py-10 sm:py-14 lg:py-20 so the section itself
+          has less top/bottom padding on small screens. */}
+      <section className="bg-white py-10 sm:py-14 lg:py-20">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-stretch">
           {/* Left: Image — slides in from the LEFT when this section enters view */}
           <motion.div
             initial={{ opacity: 0, x: -80 }}

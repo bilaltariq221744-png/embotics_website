@@ -14,7 +14,7 @@ const Footer = () => {
               </span>
               Embotics
             </Link>
-            <p className="text-white/70 text-md leading-relaxed max-w-xs ">
+            <p className="text-white/90 text-md leading-relaxed max-w-xs ">
               Intelligent reverse vending machines and engineering services for a circular,
               sustainable future.
             </p>
@@ -23,7 +23,7 @@ const Footer = () => {
           {/* Quick links */}
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-widest">Quick Links</h4>
-            <div className="flex flex-col gap-2.5 text-white/60 text-md">
+            <div className="flex flex-col gap-2.5 text-white/80 text-md">
               <Link to="/rvm" className="hover:text-green-primary transition w-fit">Reverse Vending Machine</Link>
               <Link to="/engineering" className="hover:text-green-primary transition w-fit">Services</Link>
               <Link to="/sustainability" className="hover:text-green-primary transition w-fit">Sustainability</Link>
@@ -35,10 +35,10 @@ const Footer = () => {
           {/* Contact info */}
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-widest">Get In Touch</h4>
-            <div className="text-white/60 text-md space-y-3">
+            <div className="text-white/80 text-md space-y-3">
               <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-green-primary shrink-0" /> hello@embotics.com</p>
-              <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-green-primary shrink-0" /> +91 (000) 000-0000</p>
-              <p className="flex items-center gap-2"><MapPin className="w-4 h-4 text-green-primary shrink-0" /> Bangalore, India</p>
+              <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-green-primary shrink-0" /> +92 (000) 000-0000</p>
+              <p className="flex items-center gap-2"><MapPin className="w-4 h-4 text-green-primary shrink-0" /> Islamabad, Pakistan</p>
             </div>
           </div>
         </div>

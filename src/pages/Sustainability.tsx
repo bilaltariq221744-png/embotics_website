@@ -114,7 +114,7 @@ const Sustainability = () => {
       <div className="relative z-10">
 
         {/* 1. HERO SECTION */}
-        <section className="relative pt-32 pb-16 lg:pt-36 lg:pb-24 overflow-hidden">
+        <section className="relative pt-15 pb-16 lg:pt-15 lg:pb-24 overflow-hidden">
           <div className="max-w-[92%] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid lg:grid-cols-12 gap-12 items-center">
 

@@ -54,8 +54,7 @@ const Hero = () => {
         role="button"
         tabIndex={0}
         aria-label="Tap to see the compacted bottle"
-        className="relative max-w-8xl mx-4 sm:mx-8 lg:mx-30 mt-30 min-h-[600px] sm:min-h-[640px] lg:min-h-[720px] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl cursor-pointer select-none"
-      >
+className="relative max-w-8xl mx-0 sm:mx-0 lg:mx-33 mt-30 min-h-[600px] sm:min-h-[640px] lg:min-h-[720px] rounded-[1.25rem] sm:rounded-[1.75rem] lg:rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl cursor-pointer select-none"      >
 
         {/* ================= BACKGROUND IMAGE (CROSSFADE FLIP) ================= */}
         {/* Flip is active at every breakpoint now. Desktop triggers it on
