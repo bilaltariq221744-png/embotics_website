@@ -133,7 +133,7 @@ const Engineering = () => {
                 </Button>
               </Link>
               <a href="#embedded-systems">
-                <Button variant="outline" className="group h-[3.25rem] px-8 rounded-full border-slate-200 bg-white/80 hover:bg-slate-50 hover:border-slate-300 text-slate-700 font-medium shadow-sm backdrop-blur-md transition-all duration-300">
+                <Button variant="outline" className="group h-[3.25rem] px-8 rounded-full border-slate-200 bg-white/80 hover:bg-slate-10 hover:border-slate-300 text-forest hover:text-forest font-medium shadow-sm backdrop-blur-md transition-all duration-300">
                   <span>Explore Capabilities</span>
                   <ArrowRight className="w-4 h-4 text-slate-400 transition-transform duration-300 group-hover:translate-x-1" />
                 </Button>
@@ -164,7 +164,7 @@ const Engineering = () => {
                 PCB, IoT & Firmware Engineering
               </h2>
               <p className="mt-4 text-slate-600 text-lg leading-relaxed">
-                We design and deliver custom embedded hardware—from initial concept and schematic
+                We design and deliver custom embedded hardwar from initial concept and schematic
                 capture to prototyping, firmware development, and production testing. Our team
                 specialises in low‑power IoT, sensor integration, and real‑time control systems.
               </p>
@@ -324,7 +324,7 @@ const Engineering = () => {
                 Web, Mobile & SaaS Systems
               </h2>
               <p className="mt-4 text-slate-600 text-lg leading-relaxed">
-                We architect and build scalable digital products—from responsive web apps and
+                We architect and build scalable digital product from responsive web apps and
                 cross‑platform mobile apps to multi‑tenant SaaS platforms. Our stack is modern,
                 cloud‑native, and security‑focused.
               </p>

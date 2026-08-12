@@ -37,7 +37,7 @@ const Footer = () => {
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-widest">Get In Touch</h4>
             <div className="text-white/80 text-md space-y-3">
               <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-green-primary shrink-0" /> hello@embotics.com</p>
-              <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-green-primary shrink-0" /> +92 (000) 000-0000</p>
+              <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-green-primary shrink-0" /> +92 341 144 7542</p>
               <p className="flex items-center gap-2"><MapPin className="w-4 h-4 text-green-primary shrink-0" /> Islamabad, Pakistan</p>
             </div>
           </div>

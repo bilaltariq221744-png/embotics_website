@@ -352,14 +352,7 @@ className="relative max-w-8xl mx-0 sm:mx-0 lg:mx-33 mt-30 min-h-[600px] sm:min-h
                 <span>85% Compaction</span>
               </motion.div>
 
-              <motion.div
-                whileHover={{ y: -4, color: '#34d399' }}
-                transition={{ duration: 0.2 }}
-                className="flex items-center gap-2"
-              >
-                <ShieldCheck className="w-4 h-4 text-emerald-300 shrink-0" />
-                <span>IP65 Armor</span>
-              </motion.div>
+             
             </motion.div>
 
           </motion.div>

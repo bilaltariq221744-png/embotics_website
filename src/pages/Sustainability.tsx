@@ -22,6 +22,10 @@ import { Link } from 'react-router-dom';
 import recycleImage from '../assets/recycle.jpg';
 import bottleImage from '../assets/CrushedImage.png';
 import recycleImageGraphic from '../assets/RecycleImage.png';
+import airUniLogo from '../assets/air-university-logo.png';
+import numlUniLogo from '../assets/numl-logo.png';
+import auBIC from '../assets/AUBIC.png';
+
 
 const COPPER = '#C08A3E';
 
@@ -226,17 +230,22 @@ const Sustainability = () => {
                 <span className="font-bold text-forest uppercase">Industry Leaders</span>
               </div>
 
-              <div className="flex flex-wrap items-center gap-8 font-bold text-base tracking-tight">
-                <span className="font-extrabold text-lime-500 hover:text-lime-600 transition-colors">Sprite</span>
-                <span className="font-extrabold text-orange-500 hover:text-orange-600 transition-colors">Fanta</span>
-                <span className="font-serif italic text-xl font-extrabold text-red-600 hover:text-red-700 transition-colors">
-                  Coca-Cola
-                </span>
-                <span className="font-sans font-black text-blue-600 text-lg hover:text-blue-700 transition-colors">
-                  Pepsi
-                </span>
-                <span className="font-bold text-forest hover:text-slate-800 transition-colors">Cola-Next</span>
-                <span className="font-extrabold text-green-600 hover:text-green-700 transition-colors">7up</span>
+              <div className="flex flex-wrap items-center gap-10">
+                <img
+                  src={airUniLogo}
+                  alt="AIR University"
+                  className="h-20 sm:h-20 w-auto object-contain opacity-100"
+                />
+                <img
+                  src={numlUniLogo}
+                  alt="NUML University"
+                  className="h-20 sm:h-20 w-auto object-contain opacity-100"
+                />
+                <img
+                  src={auBIC}
+                  alt="AIR University BIC"
+                  className="h-20 sm:h-25 w-auto object-contain opacity-100"
+                />
               </div>
             </motion.div>
           </div>
@@ -253,9 +262,9 @@ const Sustainability = () => {
           >
             {[
               { icon: Recycle, value: 250, suffix: 'K+', label: 'Bottles Redirected' },
-              { icon: Coins, value: 50, suffix: 'K+', label: 'Active Recyclers' },
-              { icon: Leaf, value: 120, suffix: '+', label: 'Tons CO₂ Prevented' },
-              { icon: Sprout, value: 25, suffix: '+', label: 'Cities & Deployments' },
+              { icon: Coins, value: 40, suffix: '+', label: 'Active Recyclers' },
+              { icon: Leaf, value: 150, suffix: '+', label: 'Kg CO₂ Prevented' },
+              { icon: Sprout, value: 1, suffix: '+', label: 'Cities & Deployments' },
             ].map((m) => (
               <motion.div
                 key={m.label}
@@ -296,7 +305,7 @@ const Sustainability = () => {
                   <h2 className="font-heading text-3xl sm:text-4xl font-bold text-white tracking-tight leading-tight">
                     Single-use plastic has no perceived return value today.
                   </h2>
-                  <p className="mt-4 text-white/70 text-base sm:text-lg leading-relaxed">
+                  <p className="mt-4 text-white/90 text-base sm:text-lg leading-relaxed">
                     Global linear consumption models have led to severe environmental degradation.
                     Millions of tons of plastic bottles end up in oceans and landfills annually
                     because consumers lack convenient, immediate incentives to recycle.
@@ -314,7 +323,7 @@ const Sustainability = () => {
                     {
                       icon: RefreshCw,
                       title: 'Low Global Recycling Rates',
-                      text: 'Less than 10% of plastic waste is successfully recycled back into new products.',
+                      text: 'Less than 9% of plastic waste is successfully recycled back into new products.',
                     },
                     {
                       icon: X,
@@ -335,13 +344,13 @@ const Sustainability = () => {
                     >
                       <div
                         className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5"
-                        style={{ background: `${COPPER}33`, color: COPPER }}
+                        style={{ background: `${COPPER}44`, color: COPPER }}
                       >
                         <row.icon className="w-4 h-4" />
                       </div>
                       <div>
                         <h4 className="text-white font-bold text-base">{row.title}</h4>
-                        <p className="text-white/60 text-sm mt-0.5">{row.text}</p>
+                        <p className="text-white/80 text-sm mt-0.5">{row.text}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -582,14 +591,14 @@ const Sustainability = () => {
               {[
                 {
                   icon: Leaf,
-                  value: 72,
+                  value: 150,
                   suffix: ' kg CO₂',
                   label: 'Diverted Per Machine Daily',
                   text: 'Equivalent to removing dozens of traditional vehicle trips from the road each month by cutting down landfill transport and virgin resin creation.',
                 },
                 {
                   icon: Sprout,
-                  value: 1300,
+                  value: 40,
                   suffix: '+',
                   label: 'Green Jobs Supported',
                   text: 'Empowering waste collectors, logistics workers, and local maintainers through a fair, transparent digital circular economy.',
@@ -615,7 +624,7 @@ const Sustainability = () => {
                     <Counter end={stat.value} suffix={stat.suffix} />
                   </h3>
                   <p className="text-green-primary font-bold text-sm sm:text-base mt-2">{stat.label}</p>
-                  <p className="text-forest/60 text-xs sm:text-sm mt-3 leading-relaxed">{stat.text}</p>
+                  <p className="text-forest/700 text-xs sm:text-sm mt-3 leading-relaxed">{stat.text}</p>
                 </motion.div>
               ))}
             </motion.div>

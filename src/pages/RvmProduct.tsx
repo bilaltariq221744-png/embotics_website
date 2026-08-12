@@ -7,6 +7,7 @@ import {
   BarChart3,
   Users,
   Mail,
+  Send,
   BottleWineIcon,
   RecycleIcon,
   TouchpadIcon,
@@ -112,6 +113,38 @@ const RvmProduct = () => {
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Used by the "Send a Message" form below (interest + message fields).
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setErrorMessage(null);
+    setSubmitted(false);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const data = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      company: formData.get('company') as string,
+      phone: formData.get('phone') as string,
+      interest: formData.get('interest') as string,
+      message: formData.get('message') as string,
+      type: 'contact' as const,
+    };
+
+    const result = await submitForm(data);
+    if (result.success) {
+      setSubmitted(true);
+      setErrorMessage(null);
+      form.reset();
+    } else {
+      setSubmitted(false);
+      setErrorMessage(typeof result.error === 'string' ? result.error : String(result.error));
+    }
+    setSubmitting(false);
+  };
+
+  // Kept in case a separate "Request a Demo" form is wired up elsewhere.
   const handleDemoSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
@@ -169,8 +202,9 @@ const RvmProduct = () => {
             className="w-full lg:w-1/2 "
           >
             <SectionBadge icon={RecycleIcon} label="Reverse Vending Machine" />
-            <h1 className="mt-3 font-heading text-4xl sm:text-5xl font-bold text-forest leading-tight">
-              AI‑Powered Recycling and Reward System
+            <h1 className="mt-3 font-heading text-4xl sm:text-5xl font-bold text-black/90 leading-tight">
+              AI‑Powered Recycling and
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-green-700"> Reward System </span>
             </h1>
             <p className="mt-6 text-text-base/90 text-lg leading-relaxed ">
               The Embotics Reverse Vending Machine is a smart recycling solution
@@ -285,8 +319,6 @@ const RvmProduct = () => {
                   <p className="text-text-base/90 text-[17px] leading-6 mb-6">
                     {item.description}
                   </p>
-
-                 
                 </motion.div>
 
                 {/* Connector arrow (desktop only, not after last card) */}
@@ -473,78 +505,97 @@ const RvmProduct = () => {
             </p>
           </motion.div>
 
-          <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            onSubmit={handleDemoSubmit}
-            className=" rounded-2xl p-6 sm:p-8 border border-green-primary/20 shadow-xl bg-emerald-50 overflow-hidden "
+            className="bg-white  border border-green-primary/20 rounded-2xl p-6 sm:p-8  shadow-lg"
           >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 ">
+           
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-forest font-medium text-sm mb-1">Full name *</label>
+                  <input
+                    name="name"
+                    type="text"
+                    className="w-full border  border-green-primary/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
+                    placeholder="John Doe"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-forest font-medium text-sm mb-1">Email *</label>
+                  <input
+                    name="email"
+                    type="email"
+                    className="w-full border  border-green-primary/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
+                    placeholder="john@company.com"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-forest font-medium text-sm mb-1">Company</label>
+                  <input
+                    name="company"
+                    type="text"
+                    className="w-full border  border-green-primary/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
+                    placeholder="Company name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-forest font-medium text-sm mb-1">Phone</label>
+                  <input
+                    name="phone"
+                    type="tel"
+                    className="w-full border  border-green-primary/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
+                    placeholder="+92 308 87338 3"
+                  />
+                </div>
+              </div>
               <div>
-                <label className="block text-forest font-medium text-md mb-1">Full name *</label>
-                <input
-                  name="name"
-                  type="text"
-                  className="w-full border border-green-primary/30 rounded-lg px-4 py-3 text-md focus:outline-none focus:border-green-primary transition-colors"
-                  placeholder="John Doe"
+                <label className="block text-forest font-medium text-sm mb-1">Interest *</label>
+                <select
+                  name="interest"
+                  className="w-full border border-green-primary/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors bg-white"
                   required
-                />
+                >
+                  <option value="">Select an option</option>
+                  <option value="rvm-demo">RVM Demo</option>
+                  <option value="engineering-services">Engineering Services</option>
+                  <option value="partnership">Partnership / Investment</option>
+                  <option value="other">Other</option>
+                </select>
               </div>
               <div>
-                <label className="block text-forest  font-medium text-md mb-1">Email *</label>
-                <input
-                  name="email"
-                  type="email"
-                  className="w-full border border-green-primary/30 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
-                  placeholder="john@company.com"
-                  required
+                <label className="block text-forest font-medium text-sm mb-1">Message</label>
+                <textarea
+                  name="message"
+                  rows={4}
+                  className="w-full border  border-green-primary/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
+                  placeholder="Tell us about your project or enquiry..."
                 />
               </div>
-              <div>
-                <label className="block text-forest font-medium text-md mb-1">Company</label>
-                <input
-                  name="company"
-                  type="text"
-                  className="w-full border border-green-primary/30 rounded-lg px-4 py-3 text-md focus:outline-none focus:border-green-primary transition-colors"
-                  placeholder="Company name"
-                />
-              </div>
-              <div>
-                <label className="block text-forest font-medium text-md mb-1">Phone</label>
-                <input
-                  name="phone"
-                  type="tel"
-                  className="w-full border border-green-primary/30 rounded-lg px-4 py-3 text-md focus:outline-none focus:border-green-primary transition-colors"
-                  placeholder="+91 0000000000"
-                />
-              </div>
-            </div>
-            <div className="mb-4">
-              <label className="block text-forest font-medium text-md mb-1">Message</label>
-              <textarea
-                name="message"
-                rows={3}
-                className="w-full border border-green-primary/30  rounded-lg px-4 py-3 text-md focus:outline-none focus:border-green-primary transition-colors"
-                placeholder="Tell us about your deployment needs..."
-              />
-            </div>
-            <Button type="submit" variant="primary" className="w-full gap-2" disabled={submitting}>
-              {submitting ? 'Sending...' : 'Submit Demo Request'} <Mail className="w-4 h-4" />
-            </Button>
-            {submitted && (
-              <p className="text-green-primary text-sm text-center mt-2">
-                Thanks! We'll be in touch to schedule your demo.
+              <Button type="submit" variant="primary" className="w-full gap-2" disabled={submitting}>
+                {submitting ? 'Submitting...' : 'Submit Demo Request'} <Send className="w-4 h-4" />
+              </Button>
+              {submitted && (
+                <p className="text-green-primary text-sm text-center mt-2">
+                  Thank you! We'll get back to you within one business day.
+                </p>
+              )}
+              {errorMessage && (
+                <p className="text-red-600 text-sm text-center mt-2">{errorMessage}</p>
+              )}
+              <p className="text-xs text-text-base/50 text-center mt-2">
+                <ShieldCheck className="inline w-3 h-3 mr-1" />
+                We respect your privacy and never share your data.
               </p>
-            )}
-            {errorMessage && (
-              <p className="text-red-600 text-sm text-center mt-2">{errorMessage}</p>
-            )}
-            <p className="text-xs text-text-base/90 mt-3 text-center">
-              We respect your privacy and will never share your data.
-            </p>
-          </motion.form>
+            </form>
+          </motion.div>
         </div>
       </section>
     </div>

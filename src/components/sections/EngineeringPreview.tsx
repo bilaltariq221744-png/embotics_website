@@ -83,7 +83,7 @@ const EngineeringPreview = () => {
             Full-Stack Hardware & Software Services
           </h2>
 
-          <p className="mt-4 text-text-base/70 max-w-2xl mx-auto">
+          <p className="mt-4 text-text-base/90 max-w-2xl mx-auto text-lg">
             From Idea to Implementation, we deliver end-to-end engineering
             services that bring industrial products to life.
           </p>

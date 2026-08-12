@@ -1,6 +1,8 @@
 import { motion, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
 import { Recycle, Wind, Building2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db, firebaseError } from "../../lib/firebase";
 
 interface Metric {
   icon: React.ElementType;
@@ -11,33 +13,10 @@ interface Metric {
   accent: string;
 }
 
-const metrics: Metric[] = [
-  {
-    icon: Recycle,
-    value: 2000,
-    suffix: "+",
-    label: "Bottles Recycled",
-    description: "Over 2K containers recycled.",
-    accent: "recycle",
-  },
-  {
-    icon: Wind,
-    value: 72,
-    suffix: "Kg",
-    label: "CO₂ Saved",
-    description: "Equivalent to taking 5 cars off the road annually.",
-    accent: "wind",
-  },
-  {
-    icon: Building2,
-    value: 1,
-    suffix: "",
-    label: "Machines Deployed",
-    description:
-      "Active in educational institutions, malls and public spaces.",
-    accent: "building",
-  },
-];
+// ---- Only touch these if your real-world conversion ratio changes ----
+const CO2_KG_PER_BOTTLE = 0.075; // derived from 150kg / 2000 bottles
+const KG_CO2_PER_MILE = 0.4;     // derived from 150kg ≈ 375 miles
+const MACHINES_DEPLOYED = 1;     // still hardcoded — not tracked in Firestore yet
 
 /* ================= DECORATIVE SVG ART PER CARD TYPE ================= */
 /* `active` controls whether the loop is currently running - lets us restart it each time the card re-enters view */
@@ -212,7 +191,7 @@ const AnimatedNumber = ({ target, suffix, play }: { target: number; suffix: stri
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    if (!play) {
+    if (!play || target <= 0) {
       setCurrent(0);
       return;
     }
@@ -240,6 +219,13 @@ const AnimatedNumber = ({ target, suffix, play }: { target: number; suffix: stri
 const MetricCard = ({ metric, index, featured = false }: { metric: Metric; index: number; featured?: boolean }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: false, amount: 0.4 });
+
+  // Separate, ONE-TIME trigger just for the number counter. Once this flips
+  // to true the first time the card scrolls into view, it stays true forever
+  // (until page refresh) — so AnimatedNumber never resets back to 0 and
+  // recounts on every scroll. All the other decorative effects below still
+  // use `isInView` and keep looping each time the card re-enters view.
+  const hasCountedOnce = useInView(cardRef, { once: true, amount: 0.4 });
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -325,7 +311,7 @@ const MetricCard = ({ metric, index, featured = false }: { metric: Metric; index
           </motion.div>
 
           <div className="mt-6">
-            <AnimatedNumber target={metric.value} suffix={metric.suffix} play={isInView} />
+            <AnimatedNumber target={metric.value} suffix={metric.suffix} play={hasCountedOnce} />
           </div>
 
           <motion.div className="mt-3 h-[3px] w-16 mx-auto bg-emerald-100 rounded-full overflow-hidden">
@@ -348,6 +334,63 @@ const MetricCard = ({ metric, index, featured = false }: { metric: Metric; index
 /* ================= SECTION ================= */
 
 const ImpactMetrics = () => {
+  // The only piece of state that comes from outside — everything else in this
+  // component is calculated from it. Nobody visiting the site can change it;
+  // only editing the stats/metrics document in Firebase Console can.
+  const [bottlesRecycled, setBottlesRecycled] = useState<number | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(firebaseError);
+
+  useEffect(() => {
+    if (!db) return; // firebaseError already set above, nothing to subscribe to
+
+    const unsubscribe = onSnapshot(
+      doc(db, "stats", "metrics"),
+      (snapshot) => {
+        const data = snapshot.data();
+        if (data && typeof data.bottlesRecycled === "number") {
+          setBottlesRecycled(data.bottlesRecycled);
+          setLoadError(null);
+        } else {
+          setLoadError("stats/metrics is missing a bottlesRecycled number field.");
+        }
+      },
+      () => setLoadError("Unable to load recycling stats.")
+    );
+
+    return () => unsubscribe();
+  }, []);
+
+  const bottles = bottlesRecycled ?? 0;
+  const co2SavedKg = bottles * CO2_KG_PER_BOTTLE;
+  const equivalentMiles = co2SavedKg / KG_CO2_PER_MILE;
+
+  const metrics: Metric[] = [
+    {
+      icon: Recycle,
+      value: bottles,
+      suffix: "+",
+      label: "Bottles Recycled",
+      description: `Over ${bottles.toLocaleString()}+ containers recycled.`,
+      accent: "recycle",
+    },
+    {
+      icon: Wind,
+      value: Math.round(co2SavedKg),
+      suffix: "Kg",
+      label: "CO₂ Saved",
+      description: `Equivalent to a car driving about ${Math.round(equivalentMiles)} fewer miles.`,
+      accent: "wind",
+    },
+    {
+      icon: Building2,
+      value: MACHINES_DEPLOYED,
+      suffix: "",
+      label: "Machines Deployed",
+      description: "Active in educational institutions, malls and public spaces.",
+      accent: "building",
+    },
+  ];
+
   return (
     <section className="relative py-24 bg-emerald-50 overflow-hidden">
       {/* Ambient background glows for the whole section */}
@@ -383,11 +426,15 @@ const ImpactMetrics = () => {
           </p>
         </motion.div>
 
-        <div className="mt-16 grid md:grid-cols-3 gap-8 items-stretch">
-          {metrics.map((metric, index) => (
-            <MetricCard key={metric.label} metric={metric} index={index} featured={index === 0} />
-          ))}
-        </div>
+        {loadError ? (
+          <p className="mt-16 text-center text-sm text-slate-400">{loadError}</p>
+        ) : (
+          <div className="mt-16 grid md:grid-cols-3 gap-8 items-stretch">
+            {metrics.map((metric, index) => (
+              <MetricCard key={metric.label} metric={metric} index={index} featured={index === 0} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
