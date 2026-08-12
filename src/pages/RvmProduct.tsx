@@ -6,7 +6,6 @@ import {
   Leaf,
   BarChart3,
   Users,
-  Mail,
   Send,
   BottleWineIcon,
   RecycleIcon,
@@ -113,8 +112,8 @@ const RvmProduct = () => {
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Used by the "Send a Message" form below (interest + message fields).
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  // Used by the "Request a Demo" form below (interest + message fields).
+  const handleDemoSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
     setErrorMessage(null);
@@ -130,36 +129,6 @@ const RvmProduct = () => {
       interest: formData.get('interest') as string,
       message: formData.get('message') as string,
       type: 'contact' as const,
-    };
-
-    const result = await submitForm(data);
-    if (result.success) {
-      setSubmitted(true);
-      setErrorMessage(null);
-      form.reset();
-    } else {
-      setSubmitted(false);
-      setErrorMessage(typeof result.error === 'string' ? result.error : String(result.error));
-    }
-    setSubmitting(false);
-  };
-
-  // Kept in case a separate "Request a Demo" form is wired up elsewhere.
-  const handleDemoSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setErrorMessage(null);
-    setSubmitted(false);
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const data = {
-      name: formData.get('name') as string,
-      email: formData.get('email') as string,
-      company: formData.get('company') as string,
-      phone: formData.get('phone') as string,
-      message: formData.get('message') as string,
-      type: 'demo' as const,
     };
 
     const result = await submitForm(data);
@@ -512,8 +481,8 @@ const RvmProduct = () => {
             viewport={{ once: true }}
             className="bg-white  border border-green-primary/20 rounded-2xl p-6 sm:p-8  shadow-lg"
           >
-           
-            <form onSubmit={handleSubmit} className="space-y-4">
+
+            <form onSubmit={handleDemoSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-forest font-medium text-sm mb-1">Full name *</label>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
-import { ArrowRight, Cpu, Zap, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Cpu, Zap } from 'lucide-react';
 import Button from '../ui/Button';
 import { Link } from 'react-router-dom';
 import heroBg from '../../assets/simple bottle.png';
