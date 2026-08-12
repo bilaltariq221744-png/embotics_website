@@ -1,40 +1,42 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Mail } from 'lucide-react';
+import { Leaf, Sparkles, Mail } from 'lucide-react';
 import Button from '../ui/Button';
 import { Link } from 'react-router-dom';
 
 const CTASection = () => {
   return (
-    <section className="relative bg-forest py-20 overflow-hidden">
-      {/* Soft radial gradient for depth */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-primary/20 via-transparent to-transparent opacity-60" />
-
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section className="py-10 sm:py-16 relative z-10">
+      <div className="max-w-4xl mx-4 sm:mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="relative overflow-hidden rounded-[32px] sm:rounded-[999px] border border-green-primary/30 bg-emerald-50/60 px-6 py-14 sm:py-19 text-center"
         >
-          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-white leading-tight">
-            Ready to power the{' '}
-            <span className="text-accent-teal">circular economy</span>?
-          </h2>
-          <p className="mt-4 text-white/80 text-lg max-w-xl mx-auto">
-            Deploy our AI‑powered reverse vending machines or leverage our engineering services to
-            build the next generation of sustainable technology.
-          </p>
+          <Leaf
+            className="hidden sm:block absolute top-8 right-[5.75rem] w-8 h-8 text-emerald-300"
+            strokeWidth={1.5}
+            aria-hidden
+          />
+          <Sparkles
+            className="hidden sm:block absolute bottom-[3.25rem] left-24 w-6 h-6 text-emerald-300"
+            strokeWidth={1.5}
+            aria-hidden
+          />
 
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/rvm">
-              <Button variant="primary" className="gap-2">
-                Explore the RVM <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
+          <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-forest">
+            Want to build the future with us?
+          </h2>
+          <p className="mt-4 text-text-base/70 max-w-xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed">
+            We're always open to partnerships, pilot projects, and conversations about how our
+            technology can create impact.
+          </p>
+          <div className="mt-8">
             <Link to="/contact">
               <Button
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-forest gap-2"
+                className="gap-2 rounded-full border border-forest/60 bg-white text-forest font-semibold px-6 py-3 hover:bg-forest hover:text-white transition-colors"
               >
                 Get in Touch <Mail className="w-4 h-4" />
               </Button>

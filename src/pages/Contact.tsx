@@ -94,7 +94,7 @@ const Contact = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1, duration: 0.4 }}
               viewport={{ once: true }}
-              className="bg-sage-light rounded-2xl p-6 border border-green-primary/10 text-center"
+              className="bg-sage-light rounded-2xl p-6 border border-green-primary/30 text-center"
             >
               <div className="w-12 h-12 rounded-full bg-green-primary/10 flex items-center justify-center mx-auto mb-4">
                 <contact.icon className="w-6 h-6 text-green-primary" />
@@ -116,7 +116,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="bg-white rounded-2xl p-6 sm:p-8 border border-sage-light shadow-sm"
+            className="bg-white  border border-green-primary/20 rounded-2xl p-6 sm:p-8  shadow-lg"
           >
             <h2 className="font-heading text-2xl font-bold text-forest mb-6">Send a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -126,7 +126,7 @@ const Contact = () => {
                   <input
                     name="name"
                     type="text"
-                    className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
+                    className="w-full border  border-green-primary/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                     placeholder="John Doe"
                     required
                   />
@@ -136,7 +136,7 @@ const Contact = () => {
                   <input
                     name="email"
                     type="email"
-                    className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
+                    className="w-full border  border-green-primary/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                     placeholder="john@company.com"
                     required
                   />
@@ -148,7 +148,7 @@ const Contact = () => {
                   <input
                     name="company"
                     type="text"
-                    className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
+                    className="w-full border  border-green-primary/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                     placeholder="Company name"
                   />
                 </div>
@@ -157,7 +157,7 @@ const Contact = () => {
                   <input
                     name="phone"
                     type="tel"
-                    className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
+                    className="w-full border  border-green-primary/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                     placeholder="+91 0000000000"
                   />
                 </div>
@@ -166,7 +166,7 @@ const Contact = () => {
                 <label className="block text-forest font-medium text-sm mb-1">Interest *</label>
                 <select
                   name="interest"
-                  className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors bg-white"
+                  className="w-full border border-green-primary/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors bg-white"
                   required
                 >
                   <option value="">Select an option</option>
@@ -181,7 +181,7 @@ const Contact = () => {
                 <textarea
                   name="message"
                   rows={4}
-                  className="w-full border border-sage-light rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
+                  className="w-full border  border-green-primary/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-primary transition-colors"
                   placeholder="Tell us about your project or enquiry..."
                 />
               </div>
@@ -209,7 +209,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="bg-white rounded-2xl p-6 sm:p-8 border border-sage-light shadow-sm flex flex-col"
+            className="bg-white rounded-2xl p-6 sm:p-8 border  border-green-primary/20 shadow-lg flex flex-col"
           >
             <h2 className="font-heading text-2xl font-bold text-forest mb-6">Our Location</h2>
             <div className="bg-sage-light rounded-xl flex-1 overflow-hidden border border-green-primary/10">
